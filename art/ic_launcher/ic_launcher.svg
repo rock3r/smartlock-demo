@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4 (15575) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_launcher</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feGaussianBlur stdDeviation="10.5" in="shadowOffsetInner1" result="shadowBlurInner1"></feGaussianBlur>
+            <feComposite in="shadowBlurInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.290196078   0 0 0 0 0.564705882   0 0 0 0 0.88627451  0 0 0 0.35 0" in="shadowInnerInner1" type="matrix" result="shadowMatrixInner1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ic_launcher" sketch:type="MSArtboardGroup">
+            <path d="M128,182 C104.18125,182 85,201.221429 85,225 L85,438 C85,461.778571 104.18125,481 128,481 L383,481 C406.81875,481 426,461.778571 426,438 L426,225 C426,201.221429 406.81875,182 383,182 L128,182 Z" id="Main-body" fill="#7D848C" sketch:type="MSShapeGroup"></path>
+            <g id="Main-body-highlight" sketch:type="MSLayerGroup" transform="translate(0.000000, 182.000000)" fill="#9FA4AB">
+                <rect id="Mask" sketch:type="MSShapeGroup" x="0" y="0" width="256" height="330"></rect>
+            </g>
+            <path d="M362,181 L362,138 C362,79.68 314.288,32 255,32 C196.712,32 149,79.68 149,138 L149,181 L362,181 Z M321,181 L189,181 L189,138 C189,101.707843 218.593548,72 255,72 C291.406452,72 321,101.707843 321,138 L321,181 Z" id="Padock" fill-opacity="0.846269248" fill="#7A7A76" sketch:type="MSShapeGroup"></path>
+            <path d="M426,339.419847 L273,260 L233,406 L391.753273,480.119906 C411.382686,476.107678 426,458.844494 426,438 L426,339.419847 Z" id="Shadow" fill-opacity="0.2" fill="#000000" sketch:type="MSShapeGroup"></path>
+            <path d="M229,332.647009 C219.800317,324.74459 214,313.024357 214,300 C214,276.35 233.125,257 257,257 C279.875,257 299,276.35 299,300 C299,312.120497 293.976806,323.111596 286,330.94746 L286,399.001368 C286,403.418891 282.412802,407 277.999345,407 L237.000655,407 C232.582015,407 229,403.409322 229,399.001368 L229,332.647009 Z" id="Patch" fill="#343A41" filter="url(#filter-1)" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>
