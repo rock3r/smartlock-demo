@@ -30,7 +30,6 @@ proguard/
 *.ipr
 *.iws
 .idea/
-.gradle/
 
 # OS-dependent cruft
 *.DS_Store
