@@ -1,0 +1,25 @@
+<resources>
+
+  <string name="app_name">Smart Lock demo</string>
+
+  <string name="your_credentials">Your credentials:</string>
+  <string name="action_settings">Settings</string>
+  <string name="hint_username">Username</string>
+  <string name="hint_password">Password</string>
+  <string name="store_credentials">Store credentials</string>
+  <string name="forget_credentials">Forget credentials</string>
+  <string name="credentials_saved">Credentials saved.</string>
+  <string name="credentials_retrieved">Credentials retrieved from Smart Lock.</string>
+  <string name="credentials_forgotten">Credentials forgotten.</string>
+  <string name="restart_app">RESTART APP</string>
+  <string name="error_store_incomplete_credentials">Please fill in username and password first.</string>
+  <string name="error_store_failure">Credentials saving failed, error: %s.</string>
+  <string name="error_store_failure_log">Credentials saving failed, see log.</string>
+  <string name="error_forget_no_credentials">No saved credentials to forget.</string>
+  <string name="error_retrieve_fatal">Couldn\'t retrieve saved credentials.</string>
+  <string name="error_retrieve_failure">Retrieving saved credentials failed, error: %s.</string>
+  <string name="error_retrieve_failure_log">Retrieving saved credentials failed, see log.</string>
+  <string name="error_signin_hint_failure">Signin hint launch failed, see log.</string>
+  <string name="error_forget_failure">Forgetting credentials failed, see log.</string>
+
+</resources>

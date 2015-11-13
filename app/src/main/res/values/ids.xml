@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <item name="request_code_connection" type="id" />
+  <item name="request_code_read_credentials" type="id" />
+  <item name="request_code_save_credentials" type="id" />
+  <item name="request_code_signin" type="id" />
+
+</resources>
