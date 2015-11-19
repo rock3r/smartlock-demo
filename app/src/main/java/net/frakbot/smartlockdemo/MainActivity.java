@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         showProgress();
-        Auth.CredentialsApi.save(credentialsClient, credentials)
+        Auth.CredentialsApi
+                .save(credentialsClient, credentials)
                 .setResultCallback(new StoreCredentialsResultCallback(this));
     }
 
@@ -139,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
                                           CredentialRequest credentialRequest,
                                           ReadCredentialsResultCallback callback) {
         showProgress();
-        Auth.CredentialsApi.request(apiClient, credentialRequest)
+        Auth.CredentialsApi
+                .request(apiClient, credentialRequest)
                 .setResultCallback(callback);
     }
 
