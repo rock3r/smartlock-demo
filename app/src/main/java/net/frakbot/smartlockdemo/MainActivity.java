@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGNIN = R.id.request_code_signin;
     private static final String TAG = "SmartLockDemo";
 
+    private UserPreferences preferences;
+
     private GoogleApiClient credentialsClient;
     private CredentialRequest credentialsRequest;
     private ViewGroup contentRoot;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         contentRoot = (ViewGroup) findViewById(R.id.content_root);
         progressView = findViewById(R.id.progress);
+
+        preferences = UserPreferences.with(this);
 
         setupGms();
 
@@ -64,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupGms() {
+        if (!shouldUseSmartLock()) {
+            showSmartLockDisabledMessage();
+            return;
+        }
+
         UberGmsConnectionListener gmsListener = new UberGmsConnectionListener(this);
         credentialsClient = createCredentialsClient(this, gmsListener);
         credentialsRequest = createCredentialsRequest();
@@ -84,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void storeCredentials() {
+        if (!shouldUseSmartLock()) {
+            showSmartLockDisabledMessage();
+            return;
+        }
+
         credentials = prepareCredentials();
         if (credentials == null) {
             Snackbar.make(contentRoot, R.string.error_store_incomplete_credentials, Snackbar.LENGTH_SHORT)
@@ -94,6 +108,21 @@ public class MainActivity extends AppCompatActivity {
         Auth.CredentialsApi
                 .save(credentialsClient, credentials)
                 .setResultCallback(new StoreCredentialsResultCallback(this));
+    }
+
+    private boolean shouldUseSmartLock() {
+        return preferences.useSmartLock();
+    }
+
+    private void showSmartLockDisabledMessage() {
+        Snackbar.make(contentRoot, R.string.error_smart_lock_disabled, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.reset, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        preferences.resetUseSmartLock();
+                        restartApp();
+                    }
+                });
     }
 
     private Credential prepareCredentials() {
@@ -264,6 +293,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void onSmartLockCanceled() {
+        preferences.setUserRefusedSmartLock();
     }
 
 }

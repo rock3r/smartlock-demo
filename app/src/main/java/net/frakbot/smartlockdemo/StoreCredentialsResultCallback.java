@@ -4,6 +4,7 @@ import android.content.IntentSender;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
@@ -20,6 +21,8 @@ class StoreCredentialsResultCallback implements ResultCallback<Status> {
         activity.hideProgress();
         if (status.isSuccess()) {
             activity.onCredentialsStored();
+        } else if (hasUserCanceled(status)) {
+            activity.onSmartLockCanceled();
         } else if (status.hasResolution()) {
             resolveResult(status, MainActivity.RC_SAVE);
         } else {
@@ -29,6 +32,10 @@ class StoreCredentialsResultCallback implements ResultCallback<Status> {
             Snackbar.make(activity.getContentRoot(), message, Snackbar.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    private static boolean hasUserCanceled(Status status) {
+        return status.getStatusCode() == CommonStatusCodes.CANCELED;
     }
 
     public void resolveResult(Status status, int requestCode) {

@@ -27,6 +27,8 @@ class ReadCredentialsResultCallback implements ResultCallback<CredentialRequestR
             activity.onCredentialsRetrieved(result.getCredential());
             Snackbar.make(activity.getContentRoot(), R.string.credentials_retrieved, Snackbar.LENGTH_SHORT)
                     .show();
+        } else if (hasUserCanceled(status)) {
+            activity.onSmartLockCanceled();
         } else if (needsSignIn(status)) {
             activity.startSigninHintFlow();
         } else if (status.hasResolution()) {
@@ -39,6 +41,10 @@ class ReadCredentialsResultCallback implements ResultCallback<CredentialRequestR
             Snackbar.make(activity.getContentRoot(), message, Snackbar.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    private static boolean hasUserCanceled(Status status) {
+        return status.getStatusCode() == CommonStatusCodes.CANCELED;
     }
 
     private static boolean needsSignIn(Status status) {

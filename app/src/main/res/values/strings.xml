@@ -21,5 +21,7 @@
   <string name="error_retrieve_failure_log">Retrieving saved credentials failed, see log.</string>
   <string name="error_signin_hint_failure">Signin hint launch failed, see log.</string>
   <string name="error_forget_failure">Forgetting credentials failed, see log.</string>
+  <string name="reset">Reset</string>
+  <string name="error_smart_lock_disabled">Smart Lock is disabled for this app</string>
 
 </resources>
