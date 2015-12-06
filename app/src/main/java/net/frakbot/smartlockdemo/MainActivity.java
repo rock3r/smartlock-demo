@@ -71,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSigninForm();
+            }
+        });
+
         credentialsClient.connect();
     }
 
@@ -209,6 +216,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.form_container).setVisibility(View.INVISIBLE);
         ((TextView) findViewById(R.id.signed_in_username)).setText(userId);
         findViewById(R.id.signed_in_container).setVisibility(View.VISIBLE);
+    }
+
+    private void showSigninForm() {
+        findViewById(R.id.form_container).setVisibility(View.VISIBLE);
+        findViewById(R.id.signed_in_container).setVisibility(View.INVISIBLE);
     }
 
     @Override
