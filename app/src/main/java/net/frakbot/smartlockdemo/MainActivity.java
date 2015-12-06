@@ -310,6 +310,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startSigninHintFlow() {
+        Snackbar.make(contentRoot, R.string.not_signed_up_prompt, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.sign_up, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showSigninHintDialog();
+                    }
+                })
+                .show();
+    }
+
+    private void showSigninHintDialog() {
         HintRequest hintRequest = createHintRequest();
         try {
             PendingIntent pendingIntent = Auth.CredentialsApi

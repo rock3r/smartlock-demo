@@ -26,5 +26,7 @@
   <string name="signed_in_as">Signed in as:</string>
   <string name="logout">Log out</string>
   <string name="signing_in_with_stored_credentials">Signing you in with stored credentials...</string>
+  <string name="not_signed_up_prompt">Looks like you might not have an account.</string>
+  <string name="sign_up">Sign up now</string>
 
 </resources>
