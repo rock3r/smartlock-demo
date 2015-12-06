@@ -188,19 +188,6 @@ public class MainActivity extends AppCompatActivity {
                 .setResultCallback(callback);
     }
 
-    void onCredentialsRetrieved(Credential credentials) {
-        this.credentials = credentials;
-        String userId = credentials.getId();
-        ((EditText) findViewById(R.id.username)).setText(userId);
-        EditText passwordView = (EditText) findViewById(R.id.password);
-        passwordView.setText(credentials.getPassword());
-        passwordView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-
-        findViewById(R.id.forget_credentials).setEnabled(true);
-        Snackbar.make(contentRoot, R.string.signing_in_with_stored_credentials, Snackbar.LENGTH_SHORT).show();
-        startFakeSigninProcessFor(userId);
-    }
-
     private void startFakeSigninProcessFor(final String userId) {
         showProgress();
         contentRoot.postDelayed(new Runnable() {
@@ -210,6 +197,16 @@ public class MainActivity extends AppCompatActivity {
                 hideProgress();
             }
         }, FAKE_SIGNIN_DELAY_MS);
+    }
+
+    private void showProgress() {
+        contentRoot.setEnabled(false);
+        progressView.setVisibility(View.VISIBLE);
+    }
+
+    void hideProgress() {
+        contentRoot.setEnabled(true);
+        progressView.setVisibility(View.GONE);
     }
 
     private void showSignedInStateFor(String userId) {
@@ -249,12 +246,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    void onCredentialsRetrieved(Credential credentials) {
+        this.credentials = credentials;
+        String userId = credentials.getId();
+        ((EditText) findViewById(R.id.username)).setText(userId);
+        EditText passwordView = (EditText) findViewById(R.id.password);
+        passwordView.setText(credentials.getPassword());
+        passwordView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+
+        findViewById(R.id.forget_credentials).setEnabled(true);
+        Snackbar.make(contentRoot, R.string.signing_in_with_stored_credentials, Snackbar.LENGTH_SHORT).show();
+        startFakeSigninProcessFor(userId);
+    }
+
     private void handleCredentialsStoreResult(int resultCode) {
         if (resultCode == RESULT_OK) {
             onCredentialsStored();
         } else {
             Log.e(TAG, "SAVE: Canceled by user");
         }
+    }
+
+    public void onCredentialsStored() {
+        findViewById(R.id.sign_in).performClick();
+
+        Snackbar.make(contentRoot, R.string.credentials_saved, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.restart_app, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        restartApp();
+                    }
+                })
+                .show();
+    }
+
+    private void restartApp() {
+        Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void handleGmsConnectionResult(int resultCode) {
@@ -285,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             PendingIntent pendingIntent = Auth.CredentialsApi
                     .getHintPickerIntent(credentialsClient, hintRequest);
+            // NOTE: as of 8.3, startIntentSenderForResult is the only way to avoid a Play Services crash here
             startIntentSenderForResult(pendingIntent.getIntentSender(), RC_SIGNIN_HINT, null, 0, 0, 0);
         } catch (IntentSender.SendIntentException e) {
             Log.e(TAG, "Signin hint launch failed", e);
@@ -314,34 +344,6 @@ public class MainActivity extends AppCompatActivity {
 
         Snackbar.make(contentRoot, R.string.credentials_forgotten, Snackbar.LENGTH_SHORT)
                 .show();
-    }
-
-    private void showProgress() {
-        contentRoot.setEnabled(false);
-        progressView.setVisibility(View.VISIBLE);
-    }
-
-    void hideProgress() {
-        contentRoot.setEnabled(true);
-        progressView.setVisibility(View.GONE);
-    }
-
-    public void onCredentialsStored() {
-        findViewById(R.id.sign_in).performClick();
-        Snackbar.make(contentRoot, R.string.credentials_saved, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.restart_app, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        restartApp();
-                    }
-                })
-                .show();
-    }
-
-    private void restartApp() {
-        Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
     }
 
     public void onSmartLockCanceled() {
