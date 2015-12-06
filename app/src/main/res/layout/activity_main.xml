@@ -2,9 +2,11 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:animateLayoutChanges="true"
   tools:context=".MainActivity">
 
-  <LinearLayout android:id="@+id/content_root"
+  <FrameLayout
+    android:id="@+id/content_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -14,40 +16,80 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/your_credentials" />
-
-    <EditText
-      android:id="@+id/username"
+    <LinearLayout
+      android:id="@+id/form_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/hint_username"
-      android:inputType="textNoSuggestions" />
+      android:orientation="vertical"
+      tools:visibility="gone">
 
-    <EditText
-      android:id="@+id/password"
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_credentials" />
+
+      <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_username"
+        android:inputType="textNoSuggestions" />
+
+      <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword" />
+
+      <Button
+        android:id="@+id/store_credentials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/buttons_margin_top"
+        android:text="@string/store_credentials"
+        android:enabled="false" />
+
+      <Button
+        android:id="@+id/forget_credentials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/forget_credentials"
+        android:enabled="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/signed_in_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/hint_password"
-      android:inputType="textPassword" />
+      android:orientation="vertical"
+      android:visibility="gone"
+      tools:visibility="visible">
 
-    <Button
-      android:id="@+id/store_credentials"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/store_credentials"
-      android:enabled="false" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signed_in_as" />
 
-    <Button
-      android:id="@+id/forget_credentials"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="Forget credentials"
-      android:enabled="false" />
+      <TextView
+        android:id="@+id/signed_in_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/username_margin_top"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        tools:text="My fancy username" />
 
-  </LinearLayout>
+      <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/buttons_margin_top"
+        android:text="@string/logout" />
+
+    </LinearLayout>
+
+  </FrameLayout>
 
   <FrameLayout
     android:id="@+id/progress"

@@ -23,5 +23,7 @@
   <string name="error_forget_failure">Forgetting credentials failed, see log.</string>
   <string name="reset">Reset</string>
   <string name="error_smart_lock_disabled">Smart Lock is disabled for this app</string>
+  <string name="signed_in_as">Signed in as:</string>
+  <string name="logout">Log out</string>
 
 </resources>
