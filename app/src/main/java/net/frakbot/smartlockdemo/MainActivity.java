@@ -268,7 +268,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCredentialsStored() {
-        findViewById(R.id.sign_in).performClick();
+        String username = String.valueOf(((TextView) findViewById(R.id.username)).getText());
+        startFakeSigninProcessFor(username);
 
         Snackbar.make(contentRoot, R.string.credentials_saved, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.restart_app, new View.OnClickListener() {
