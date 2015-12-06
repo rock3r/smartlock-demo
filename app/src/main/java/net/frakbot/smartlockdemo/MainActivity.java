@@ -270,7 +270,9 @@ public class MainActivity extends AppCompatActivity {
     void onCredentialsForgotten() {
         credentials = null;
         ((EditText) findViewById(R.id.username)).setText(null);
-        ((EditText) findViewById(R.id.password)).setText(null);
+        EditText passwordView = (EditText) findViewById(R.id.password);
+        passwordView.setText(null);
+        passwordView.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         Snackbar.make(contentRoot, R.string.credentials_forgotten, Snackbar.LENGTH_SHORT)
                 .show();
