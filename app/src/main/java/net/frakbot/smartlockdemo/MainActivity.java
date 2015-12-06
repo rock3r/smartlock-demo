@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupGms();
 
-        findViewById(R.id.store_credentials).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 storeCredentials();
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onGmsConnected() {
-        findViewById(R.id.store_credentials).setEnabled(true);
+        findViewById(R.id.sign_in).setEnabled(true);
         ReadCredentialsResultCallback callback = new ReadCredentialsResultCallback(this, true);
         requestStoredCredentials(credentialsClient, credentialsRequest, callback);
     }
@@ -327,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCredentialsStored() {
+        findViewById(R.id.sign_in).performClick();
         Snackbar.make(contentRoot, R.string.credentials_saved, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.restart_app, new View.OnClickListener() {
                     @Override

@@ -43,7 +43,7 @@
         android:inputType="textPassword" />
 
       <Button
-        android:id="@+id/store_credentials"
+        android:id="@+id/sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/buttons_margin_top"
