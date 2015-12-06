@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
@@ -20,6 +21,8 @@ import com.google.android.gms.auth.api.credentials.CredentialPickerConfig;
 import com.google.android.gms.auth.api.credentials.CredentialRequest;
 import com.google.android.gms.auth.api.credentials.HintRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.concurrent.TimeUnit;
 
 import static com.google.android.gms.common.api.GoogleApiClient.Builder;
 
@@ -29,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     static final int RC_READ = R.id.request_code_read_credentials;
     static final int RC_SAVE = R.id.request_code_save_credentials;
-    private static final int RC_SIGNIN = R.id.request_code_signin;
+    private static final int RC_SIGNIN_HINT = R.id.request_code_signin;
+
     private static final String TAG = "SmartLockDemo";
+
+    private static final long FAKE_SIGNIN_DELAY_MS = TimeUnit.SECONDS.toMillis(2);
 
     private UserPreferences preferences;
 
@@ -177,12 +183,32 @@ public class MainActivity extends AppCompatActivity {
 
     void onCredentialsRetrieved(Credential credentials) {
         this.credentials = credentials;
-        ((EditText) findViewById(R.id.username)).setText(credentials.getId());
+        String userId = credentials.getId();
+        ((EditText) findViewById(R.id.username)).setText(userId);
         EditText passwordView = (EditText) findViewById(R.id.password);
         passwordView.setText(credentials.getPassword());
         passwordView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 
         findViewById(R.id.forget_credentials).setEnabled(true);
+        Snackbar.make(contentRoot, R.string.signing_in_with_stored_credentials, Snackbar.LENGTH_SHORT).show();
+        startFakeSigninProcessFor(userId);
+    }
+
+    private void startFakeSigninProcessFor(final String userId) {
+        showProgress();
+        contentRoot.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showSignedInStateFor(userId);
+                hideProgress();
+            }
+        }, FAKE_SIGNIN_DELAY_MS);
+    }
+
+    private void showSignedInStateFor(String userId) {
+        findViewById(R.id.form_container).setVisibility(View.INVISIBLE);
+        ((TextView) findViewById(R.id.signed_in_username)).setText(userId);
+        findViewById(R.id.signed_in_container).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -195,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             handleCredentialsStoreResult(resultCode);
         } else if (requestCode == RC_CONNECT) {
             handleGmsConnectionResult(resultCode);
-        } else if (requestCode == RC_SIGNIN) {
+        } else if (requestCode == RC_SIGNIN_HINT) {
             handleSigninHint(data);
         }
     }
@@ -247,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             PendingIntent pendingIntent = Auth.CredentialsApi
                     .getHintPickerIntent(credentialsClient, hintRequest);
-            startIntentSenderForResult(pendingIntent.getIntentSender(), RC_SIGNIN, null, 0, 0, 0);
+            startIntentSenderForResult(pendingIntent.getIntentSender(), RC_SIGNIN_HINT, null, 0, 0, 0);
         } catch (IntentSender.SendIntentException e) {
             Log.e(TAG, "Signin hint launch failed", e);
             Snackbar.make(contentRoot, R.string.error_signin_hint_failure, Snackbar.LENGTH_SHORT)
