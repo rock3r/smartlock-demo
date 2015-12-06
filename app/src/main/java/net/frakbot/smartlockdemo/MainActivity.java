@@ -3,6 +3,7 @@ package net.frakbot.smartlockdemo;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -225,9 +226,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleSigninHint(Intent data) {
+        if (containsNoCredentials(data)) {
+            return;
+        }
         Credential credentials = data.getParcelableExtra(Credential.EXTRA_KEY);
         ((EditText) findViewById(R.id.username)).setText(credentials.getId());
-        ((EditText) findViewById(R.id.password)).setText(null);
+        ((EditText) findViewById(R.id.password)).setText(credentials.getGeneratedPassword());
+    }
+
+    private static boolean containsNoCredentials(Intent data) {
+        return !data.hasExtra(Credential.EXTRA_KEY);
     }
 
     public ViewGroup getContentRoot() {
@@ -237,10 +245,10 @@ public class MainActivity extends AppCompatActivity {
     public void startSigninHintFlow() {
         HintRequest hintRequest = createHintRequest();
         try {
-            Auth.CredentialsApi
-                    .getHintPickerIntent(credentialsClient, hintRequest)
-                    .send(this, RC_SIGNIN, null);
-        } catch (PendingIntent.CanceledException e) {
+            PendingIntent pendingIntent = Auth.CredentialsApi
+                    .getHintPickerIntent(credentialsClient, hintRequest);
+            startIntentSenderForResult(pendingIntent.getIntentSender(), RC_SIGNIN, null, 0, 0, 0);
+        } catch (IntentSender.SendIntentException e) {
             Log.e(TAG, "Signin hint launch failed", e);
             Snackbar.make(contentRoot, R.string.error_signin_hint_failure, Snackbar.LENGTH_SHORT)
                     .show();
