@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static CredentialRequest createCredentialsRequest() {
         return new CredentialRequest.Builder()
-                .setSupportsPasswordLogin(true)
+                .setPasswordLoginSupported(true)
                 .build();
     }
 
