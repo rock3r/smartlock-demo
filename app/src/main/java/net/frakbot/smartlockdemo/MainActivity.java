@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
 import com.google.android.gms.auth.api.credentials.CredentialPickerConfig;
+import com.google.android.gms.auth.api.credentials.CredentialPickerConfig.Prompt;
 import com.google.android.gms.auth.api.credentials.CredentialRequest;
 import com.google.android.gms.auth.api.credentials.HintRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        contentRoot = (ViewGroup) findViewById(R.id.content_root);
+        contentRoot = findViewById(R.id.content_root);
         progressView = findViewById(R.id.progress);
 
         preferences = UserPreferences.with(this);
@@ -251,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         this.credentials = credentials;
         String userId = credentials.getId();
         ((EditText) findViewById(R.id.username)).setText(userId);
-        EditText passwordView = (EditText) findViewById(R.id.password);
+        EditText passwordView = findViewById(R.id.password);
         passwordView.setText(credentials.getPassword());
         passwordView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 
@@ -340,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
         CredentialPickerConfig pickerConfig = new CredentialPickerConfig.Builder()
                 .setShowAddAccountButton(true)
                 .setShowCancelButton(true)
-                .setForNewAccount(true)
+                .setPrompt(Prompt.SIGN_UP)
                 .build();
         return new HintRequest.Builder()
                 .setEmailAddressIdentifierSupported(true)
@@ -351,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
     void onCredentialsForgotten() {
         credentials = null;
         ((EditText) findViewById(R.id.username)).setText(null);
-        EditText passwordView = (EditText) findViewById(R.id.password);
+        EditText passwordView = findViewById(R.id.password);
         passwordView.setText(null);
         passwordView.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
@@ -362,5 +363,4 @@ public class MainActivity extends AppCompatActivity {
     public void onSmartLockCanceled() {
         preferences.setUserRefusedSmartLock();
     }
-
 }

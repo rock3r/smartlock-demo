@@ -2,6 +2,7 @@ package net.frakbot.smartlockdemo;
 
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ class UberGmsConnectionListener implements GoogleApiClient.ConnectionCallbacks, 
 
     private final MainActivity activity;
 
-    public UberGmsConnectionListener(MainActivity hostActivity) {
+    UberGmsConnectionListener(MainActivity hostActivity) {
         this.activity = hostActivity;
     }
 
@@ -28,7 +29,7 @@ class UberGmsConnectionListener implements GoogleApiClient.ConnectionCallbacks, 
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         ViewGroup contentRoot = activity.getContentRoot();
         if (connectionResult.hasResolution()) {
             try {
@@ -43,5 +44,4 @@ class UberGmsConnectionListener implements GoogleApiClient.ConnectionCallbacks, 
                     .show();
         }
     }
-
 }

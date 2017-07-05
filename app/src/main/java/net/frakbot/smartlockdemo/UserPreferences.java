@@ -19,20 +19,19 @@ public final class UserPreferences {
         this.preferences = preferences;
     }
 
-    public void setUserRefusedSmartLock() {
+    void setUserRefusedSmartLock() {
         preferences.edit()
                 .putBoolean(KEY_USE_SMART_LOCK, false)
                 .apply();
     }
 
-    public void resetUseSmartLock() {
+    void resetUseSmartLock() {
         preferences.edit()
                 .remove(KEY_USE_SMART_LOCK)
                 .apply();
     }
 
-    public boolean useSmartLock() {
+    boolean useSmartLock() {
         return preferences.getBoolean(KEY_USE_SMART_LOCK, true);
     }
-
 }

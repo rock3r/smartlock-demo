@@ -1,6 +1,7 @@
 package net.frakbot.smartlockdemo;
 
 import android.content.IntentSender;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
@@ -14,13 +15,13 @@ class ReadCredentialsResultCallback implements ResultCallback<CredentialRequestR
     private final MainActivity activity;
     private final boolean retryOnInternalError;
 
-    public ReadCredentialsResultCallback(MainActivity activity, boolean retryOnInternalError) {
+    ReadCredentialsResultCallback(MainActivity activity, boolean retryOnInternalError) {
         this.activity = activity;
         this.retryOnInternalError = retryOnInternalError;
     }
 
     @Override
-    public void onResult(CredentialRequestResult result) {
+    public void onResult(@NonNull CredentialRequestResult result) {
         activity.hideProgress();
         Status status = result.getStatus();
         if (status.isSuccess()) {
@@ -64,5 +65,4 @@ class ReadCredentialsResultCallback implements ResultCallback<CredentialRequestR
     private boolean shouldRetryFor(Status status) {
         return status.getStatusCode() == CommonStatusCodes.INTERNAL_ERROR && retryOnInternalError;
     }
-
 }

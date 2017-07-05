@@ -1,6 +1,7 @@
 package net.frakbot.smartlockdemo;
 
 import android.content.IntentSender;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
@@ -17,7 +18,7 @@ class StoreCredentialsResultCallback implements ResultCallback<Status> {
     }
 
     @Override
-    public void onResult(Status status) {
+    public void onResult(@NonNull Status status) {
         activity.hideProgress();
         if (status.isSuccess()) {
             activity.onCredentialsStored();
@@ -38,7 +39,7 @@ class StoreCredentialsResultCallback implements ResultCallback<Status> {
         return status.getStatusCode() == CommonStatusCodes.CANCELED;
     }
 
-    public void resolveResult(Status status, int requestCode) {
+    private void resolveResult(Status status, int requestCode) {
         try {
             status.startResolutionForResult(activity, requestCode);
         } catch (IntentSender.SendIntentException e) {

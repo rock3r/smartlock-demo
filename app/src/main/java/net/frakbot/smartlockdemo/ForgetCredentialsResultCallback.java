@@ -1,5 +1,6 @@
 package net.frakbot.smartlockdemo;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 
 import com.google.android.gms.common.api.ResultCallback;
@@ -14,7 +15,7 @@ class ForgetCredentialsResultCallback implements ResultCallback<Status> {
     }
 
     @Override
-    public void onResult(Status status) {
+    public void onResult(@NonNull Status status) {
         activity.hideProgress();
         if (status.isSuccess()) {
             activity.onCredentialsForgotten();
@@ -23,5 +24,4 @@ class ForgetCredentialsResultCallback implements ResultCallback<Status> {
                     .show();
         }
     }
-
 }
