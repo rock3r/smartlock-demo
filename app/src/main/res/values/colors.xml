@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <color name="window_background_color">#383838</color>
+  <color name="window_background_color">#e5e5e5</color>
   <color name="primary">#2196F3</color>
   <color name="primary_dark">#1976D2</color>
-  <color name="accent">#69f0ae</color>
+  <color name="accent">#27ae60</color>
 
-  <color name="progress_overlay">#60aaaaaa</color>
+  <color name="progress_overlay">#33000000</color>
 
 </resources>
