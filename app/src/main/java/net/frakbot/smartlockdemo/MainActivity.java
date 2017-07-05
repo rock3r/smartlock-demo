@@ -28,12 +28,13 @@ import static com.google.android.gms.common.api.GoogleApiClient.Builder;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final int RC_CONNECT = R.id.request_code_connection;
+    private static final int REQUEST_CODE_BITMASK = 0x0000FFFF;
 
-    static final int RC_READ = R.id.request_code_read_credentials;
-    static final int RC_SAVE = R.id.request_code_save_credentials;
-    private static final int RC_SIGNIN_HINT = R.id.request_code_signin;
+    static final int RC_CONNECT = R.id.request_code_connection & REQUEST_CODE_BITMASK;
+    static final int RC_READ = R.id.request_code_read_credentials & REQUEST_CODE_BITMASK;
+    static final int RC_SAVE = R.id.request_code_save_credentials & REQUEST_CODE_BITMASK;
 
+    private static final int RC_SIGNIN_HINT = R.id.request_code_signin & REQUEST_CODE_BITMASK;
     private static final String TAG = "SmartLockDemo";
 
     private static final long FAKE_SIGNIN_DELAY_MS = TimeUnit.SECONDS.toMillis(2);
