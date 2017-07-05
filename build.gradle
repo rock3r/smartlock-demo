@@ -1,14 +1,35 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha5'
     }
 }
 
+ext {
+    supportLibVersion = '26.0.0-beta2'
+    playServicesVersion = '11.0.2'
+
+    libraries = [
+            supportAppCompat: "com.android.support:appcompat-v7:${supportLibVersion}",
+            supportDesign   : "com.android.support:design:${supportLibVersion}",
+            playServicesAuth: "com.google.android.gms:play-services-auth:${playServicesVersion}"
+    ]
+}
+
 allprojects {
+    buildscript {
+        repositories {
+            jcenter()
+            maven { url 'https://maven.google.com' }
+        }
+    }
+
     repositories {
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
 }
