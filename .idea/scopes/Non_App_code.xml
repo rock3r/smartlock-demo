@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Non-App code" pattern="file[cloudbundleverifier]:src//*||file[diagrams]:src//*" />
+</component>

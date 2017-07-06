@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Android code" pattern="file[mobile]:src//*||file[all-4-player]:src//*||file[wear]:src//*||file[common]:src//*" />
+</component>
